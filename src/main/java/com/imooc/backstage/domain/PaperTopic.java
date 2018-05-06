@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Author:   007
@@ -16,9 +17,9 @@ public class PaperTopic {
     @Id
     @GeneratedValue
     public Integer id;//试卷试题Id
-    @NotBlank(message = "试卷Id必传")
+    @NotNull(message = "试卷Id必传")
     public Integer paperId;//试卷Id
-    @NotBlank(message = "试题Id必传")
+    @NotNull(message = "试题Id必传")
     public Integer topicId;//试题Id
 
     public PaperTopic() {

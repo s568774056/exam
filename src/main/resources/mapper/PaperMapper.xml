@@ -3,8 +3,8 @@
 <mapper namespace="com.imooc.backstage.dao.PaperDao">
 
 	<insert id="insert">
-		INSERT INTO paper (id,name,createDate) VALUES
-		(#{id},#{name},#{createDate})
+		INSERT INTO paper (id,name,create_date,subject_id) VALUES
+		(#{id},#{name},#{createDate},#{subjectId})
 	</insert>
 
 	<update id="update"  parameterType="com.imooc.backstage.domain.Paper">
@@ -15,17 +15,12 @@
 		</trim>
 		where id=#{id}
 	</update>
-	<select id="selectPaper" parameterType="map" resultType="map">
-
-		SELECT  * from paper
-	</select>
-
 	<select id="selectPaper" parameterType="map" resultType="java.util.Map">
 
-		SELECT  *  from paper pa left join subject  on  pa.subject_id=su.id
+		SELECT  pa.*,su.name as subName from paper pa left join subject su  on  pa.subject_id=su.id
 		<trim prefix="WHERE" suffixOverrides=",">
-			<if test="paper.name != null">pa.name=#{paper.name},</if>
-			<if test="paper.subjectId != null">pa.subjectId=#{paper.subjectId}</if>
+			<if test="paper.name != null">pa.name=#{paper.name}</if>
+			<if test="paper.subjectId != null"> and   pa.subjectId=#{paper.subjectId}</if>
 		</trim>
 
 	</select>
