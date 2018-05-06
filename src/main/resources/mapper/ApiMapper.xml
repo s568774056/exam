@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.backstage.dao.ApiDao">
+	<!-- <sql id="tOrderColumns"> a.id AS "id",主键 a.order_no AS "orderNo",订单编号 
+		a.t_customer_id AS "customer.id",客户编号 a.sys_office_id AS "companyOffice.id",公司编号 
+		a.order_date AS "orderDate",订单日期 a.document_status AS "documentStatus",订单状态 
+		a.send_date AS "sendDate",发送时间 a.open_id AS "openId",微信编号 a.create_by AS 
+		"createBy.id",建立人 a.create_date AS "createDate",建立时间 a.update_by AS "updateBy.id",更新人 
+		a.update_date AS "updateDate",更新时间 a.remarks AS "remarks",备注 a.del_flag AS 
+		"delFlag",删除标志 </sql> <select id="findPageOrder" resultType="TOrder"> SELECT 
+		<include refid="tOrderColumns" /> FROM t_order a <where> <if test="Id!=null 
+		and id!=''"> id=#{Id} </if> </select> -->
+	<insert id="insert">
+		INSERT INTO api (name,address,detailed) VALUES
+		(#{name},#{address},#{detailed})
+	</insert>
+
+	<update id="update"  parameterType="com.imooc.backstage.domain.Api">
+		update api
+		<trim prefix="set" suffixOverrides=",">
+			<if test="name != null">name=#{name},</if>
+			<if test="address != null">address=#{address},</if>
+			<if test="detailed != null">detailed=#{detailed},</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+</mapper>

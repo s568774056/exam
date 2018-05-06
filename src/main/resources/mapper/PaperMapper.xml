@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.backstage.dao.PaperDao">
+
+	<insert id="insert">
+		INSERT INTO paper (id,name,createDate) VALUES
+		(#{id},#{name},#{createDate})
+	</insert>
+
+	<update id="update"  parameterType="com.imooc.backstage.domain.Paper">
+		update paper
+		<trim prefix="set" suffixOverrides=",">
+			<if test="name != null">name=#{name},</if>
+			<if test="createDate != null">createDate=#{createDate}</if>
+		</trim>
+		where id=#{id}
+	</update>
+	<select id="selectPaper" parameterType="map" resultType="map">
+
+		SELECT  * from paper
+	</select>
+
+	<select id="selectPaper" parameterType="map" resultType="java.util.Map">
+
+		SELECT  *  from paper pa left join subject  on  pa.subject_id=su.id
+		<trim prefix="WHERE" suffixOverrides=",">
+			<if test="paper.name != null">pa.name=#{paper.name},</if>
+			<if test="paper.subjectId != null">pa.subjectId=#{paper.subjectId}</if>
+		</trim>
+
+	</select>
+
+
+</mapper>

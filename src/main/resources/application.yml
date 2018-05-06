@@ -1,0 +1,31 @@
+server:
+  port: 7080
+  tomcat:
+  uri-encoding: UTF-8
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: admin
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+mybatis:
+  type-aliases-package: com.imooc.backstage.domain  
+  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    root: ERROR
+    com.imooc.backstage: DEBUG
+
+
