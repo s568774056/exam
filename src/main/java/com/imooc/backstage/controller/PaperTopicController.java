@@ -62,10 +62,10 @@ public class PaperTopicController {
 	 * 根據條件查询
 	 */
 	@PostMapping(value = "/select")
-	public Result select(PaperTopic paper, @RequestParam(value = "page", defaultValue = "0") Integer page,
+	public Result select(PaperTopic paper, String name, @RequestParam(value = "page", defaultValue = "0") Integer page,
 						 @RequestParam(value = "size", defaultValue = "15") Integer size) {
 
-		return service.select(paper, page, size);
+		return service.select(paper, name,page, size);
 	}
 
 	/**

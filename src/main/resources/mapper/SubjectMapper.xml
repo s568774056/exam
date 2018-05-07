@@ -8,7 +8,7 @@
 	</insert>
 
 	<update id="update"  parameterType="com.imooc.backstage.domain.Subject">
-		update api
+		update subject
 		<trim prefix="set" suffixOverrides=",">
 			<if test="name != null">name=#{name},</if>
 			<if test="detailed != null">detailed=#{detailed},</if>

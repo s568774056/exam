@@ -60,11 +60,12 @@ public class PaperTopicService {
         }
     }
 
-    public Result select(PaperTopic paper, Integer page, Integer size) {
+    public Result select(PaperTopic paper,String name, Integer page, Integer size) {
 
         Pageable pageable = new PageRequest(page, size);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("paper",paper);
+        map.put("name",name);
         map.put("pageable",pageable);
         List<Map> maps = paperDao.selectPaper(map);
         return ResultUtil.success(maps);

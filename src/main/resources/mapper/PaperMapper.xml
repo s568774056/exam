@@ -19,10 +19,10 @@
 
 		SELECT  pa.*,su.name as subName from paper pa left join subject su  on  pa.subject_id=su.id
 		<trim prefix="WHERE" suffixOverrides=",">
-			<if test="paper.name != null">pa.name=#{paper.name}</if>
+			<if test="paper.name != null">pa.name like  CONCAT('%', #{paper.name}, '%')</if>
 			<if test="paper.subjectId != null"> and   pa.subjectId=#{paper.subjectId}</if>
 		</trim>
-
+		LIMIT #{pageable.page},#{pageable.size}
 	</select>
 
 

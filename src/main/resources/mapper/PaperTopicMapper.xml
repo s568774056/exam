@@ -17,6 +17,8 @@
         <trim prefix="WHERE">
             <if test="paper.paperId > 0">paper_id=#{paper.paperId}</if>
             <if test="paper.topicId > 0"> and   topic_id=#{paper.topicId}</if>
+            <if test="name != null">and tp.name like  CONCAT('%', #{name}, '%')</if>
         </trim>
+        LIMIT #{pageable.page},#{pageable.size}
     </select>
 </mapper>
