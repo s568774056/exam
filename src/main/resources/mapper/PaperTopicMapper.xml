@@ -14,11 +14,61 @@
         paper_topic pt
         LEFT JOIN paper pa ON pt.paper_id = pa.id
         LEFT JOIN topic tp ON pt.topic_id = tp.id
-        <trim prefix="WHERE">
+        LEFT JOIN subject su ON tp.subject_id = su.id
+
+        <trim prefix="WHERE" prefixOverrides="AND">
             <if test="paper.paperId > 0">paper_id=#{paper.paperId}</if>
-            <if test="paper.topicId > 0"> and   topic_id=#{paper.topicId}</if>
-            <if test="name != null">and tp.name like  CONCAT('%', #{name}, '%')</if>
+            <if test="paper.topicId > 0">and topic_id=#{paper.topicId}</if>
+            <if test="name != null and name != ''">and tp.name like CONCAT('%', #{name} ,'%')</if>
+            <if test="subjectId != null  and subjectId != ''">and su.id like CONCAT('%', #{subjectId} ,'%')</if>
         </trim>
-        LIMIT #{pageable.page},#{pageable.size}
+        LIMIT #{page},#{size}
+    </select>
+
+    <select id="countSelectPaper" parameterType="map" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        paper_topic pt
+        LEFT JOIN paper pa ON pt.paper_id = pa.id
+        LEFT JOIN topic tp ON pt.topic_id = tp.id
+        LEFT JOIN subject su ON tp.subject_id = su.id
+
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="paper.paperId > 0">paper_id=#{paper.paperId}</if>
+            <if test="paper.topicId > 0">and topic_id=#{paper.topicId}</if>
+            <if test="name != null and name != ''">and tp.name like CONCAT('%', #{name}, '%')</if>
+            <if test="subjectId != null and subjectId != ''">and su.id like CONCAT('%', #{subjectId} ,'%')</if>
+        </trim>
+    </select>
+
+    <select id="selectTopic" parameterType="map" resultType="java.util.Map">
+
+        SELECT
+        tp.name,tp.id
+        FROM
+        topic tp
+        LEFT JOIN SUBJECT su ON tp.subject_id = su.id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="name != null and name!=''">tp.name like CONCAT('%', #{name} ,'%')</if>
+            <if test="subjectId != null and subjectId!=''">and su.id =#{subjectId}</if>
+            and tp.id not in (SELECT topic_id from paper_topic  pac WHERE pac.paper_id=#{paper.paperId})
+        </trim>
+        LIMIT #{page},#{size}
+    </select>
+
+    <select id="countSelectTopic" parameterType="map" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        topic tp
+        LEFT JOIN SUBJECT su ON tp.subject_id = su.id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="name != null and name!=''">tp.name like CONCAT('%', #{name} ,'%')</if>
+            <if test="subjectId != null and subjectId!=''">and su.id =#{subjectId}</if>
+            and tp.id
+          not in
+            (SELECT topic_id from paper_topic pac WHERE pac.paper_id=#{paper.paperId})
+        </trim>
     </select>
 </mapper>

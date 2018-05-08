@@ -62,10 +62,10 @@ public class PaperTopicController {
 	 * 根據條件查询
 	 */
 	@PostMapping(value = "/select")
-	public Result select(PaperTopic paper, String name, @RequestParam(value = "page", defaultValue = "0") Integer page,
+	public Result select(PaperTopic paper, String name,String  subjectId, @RequestParam(value = "page", defaultValue = "0") Integer page,
 						 @RequestParam(value = "size", defaultValue = "15") Integer size) {
 
-		return service.select(paper, name,page, size);
+		return service.select(paper, name,subjectId,page, size);
 	}
 
 	/**
@@ -74,5 +74,10 @@ public class PaperTopicController {
 	@PostMapping(value = "/findAll")
 	public Result findAll() {
 		return ResultUtil.success(repository.findAll());
+	}
+	@PostMapping(value = "/selectTopic")
+	public Result selectTopic(PaperTopic paper, String name,String  subjectId, @RequestParam(value = "page", defaultValue = "0") Integer page,
+							  @RequestParam(value = "size", defaultValue = "15")Integer size)  {
+		return service.selectTopic(paper, name,subjectId,page, size);
 	}
 }

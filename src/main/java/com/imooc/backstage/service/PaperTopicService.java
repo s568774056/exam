@@ -29,6 +29,13 @@ public class PaperTopicService {
 
     @Transactional
     public Result insert(PaperTopic paper) {
+
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("paper",paper);
+       int size=  paperDao.countSelectPaper(map);
+        if(size>0){
+            return ResultUtil.error(ResultEnum.INSERT_TOPICDATA);
+        }
         try {
             return ResultUtil.success(paperDao.insert(paper));
         } catch (Exception e) {
@@ -60,15 +67,29 @@ public class PaperTopicService {
         }
     }
 
-    public Result select(PaperTopic paper,String name, Integer page, Integer size) {
+    public Result select(PaperTopic paper,String name,String subjectId, Integer page, Integer size) {
 
-        Pageable pageable = new PageRequest(page, size);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("paper",paper);
         map.put("name",name);
-        map.put("pageable",pageable);
+        map.put("subjectId",subjectId);
+        map.put("page",page*size);
+        map.put("size",size);
         List<Map> maps = paperDao.selectPaper(map);
-        return ResultUtil.success(maps);
+
+        return ResultUtil.success(paperDao.countSelectPaper(map),maps);
+    }
+
+    public Result selectTopic(PaperTopic paper,String name,String subjectId, Integer page, Integer size) {
+
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("paper",paper);
+        map.put("name",name);
+        map.put("subjectId",subjectId);
+        map.put("page",page*size);
+        map.put("size",size);
+        List<Map> maps = paperDao.selectTopic(map);
+        return ResultUtil.success(paperDao.countSelectTopic(map),maps);
     }
 
 }
