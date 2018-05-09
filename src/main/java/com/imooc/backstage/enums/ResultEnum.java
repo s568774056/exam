@@ -8,7 +8,7 @@ public enum ResultEnum {
     INSERT_NODATA(300, "插入数据失败"),
     DELETE_NODATA(400, "数据可能已不存在"),
     UPDATE_NODATA(500, "更新数据失败"),
-    INSERT_TOPICDATA(600, "试题已被添加"),
+    INSERT_TOPICDATA(600, "数据已被添加"),
     ;
 	
     private Integer code;

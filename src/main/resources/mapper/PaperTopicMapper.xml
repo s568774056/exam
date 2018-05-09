@@ -11,11 +11,10 @@
         pt.*,
         tp.*
         FROM
-        paper_topic pt
+        topic tp
+        LEFT JOIN paper_topic pt ON pt.topic_id = tp.id
         LEFT JOIN paper pa ON pt.paper_id = pa.id
-        LEFT JOIN topic tp ON pt.topic_id = tp.id
-        LEFT JOIN subject su ON tp.subject_id = su.id
-
+        LEFT JOIN SUBJECT su ON tp.subject_id = su.id
         <trim prefix="WHERE" prefixOverrides="AND">
             <if test="paper.paperId > 0">paper_id=#{paper.paperId}</if>
             <if test="paper.topicId > 0">and topic_id=#{paper.topicId}</if>
@@ -29,11 +28,10 @@
         SELECT
         count(*)
         FROM
-        paper_topic pt
+        topic tp
+        LEFT JOIN paper_topic pt ON pt.topic_id = tp.id
         LEFT JOIN paper pa ON pt.paper_id = pa.id
-        LEFT JOIN topic tp ON pt.topic_id = tp.id
-        LEFT JOIN subject su ON tp.subject_id = su.id
-
+        LEFT JOIN SUBJECT su ON tp.subject_id = su.id
         <trim prefix="WHERE" prefixOverrides="AND">
             <if test="paper.paperId > 0">paper_id=#{paper.paperId}</if>
             <if test="paper.topicId > 0">and topic_id=#{paper.topicId}</if>

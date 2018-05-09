@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * 接口列表
  */
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserController {
 
 	private final static Logger logger = LoggerFactory.getLogger(UserController.class);

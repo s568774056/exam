@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Song
  */
@@ -24,7 +26,12 @@ public class UserService {
     private UserDao userDao;
     @Transactional
     public Result insert(User user) {
+
         try {
+            List list=repository.findByName(user.getName());
+            if(list.size()>0){
+                return ResultUtil.error(ResultEnum.INSERT_TOPICDATA);
+            }
             return ResultUtil.success(userDao.insert(user));
         } catch (Exception e) {
             e.printStackTrace();
