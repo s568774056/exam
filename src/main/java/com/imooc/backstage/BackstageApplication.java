@@ -18,6 +18,6 @@ public class BackstageApplication {
 		 Environment environment = app.run(args).getEnvironment();*/
 		BigDecimal bd=new BigDecimal("0.22");
 		System.out.println(bd.compareTo(BigDecimal.ZERO)==1);
-		System.out.println("".split("/").length);
+		System.out.println(" / ".split("/").length);
 	}
 }

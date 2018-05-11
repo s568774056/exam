@@ -26,8 +26,9 @@ public class Topic {
 	    private String name="";
 	    @NotBlank(message = "题目类型必传")
 	    private String type="";//0:单选,1多选
-	    @NotBlank(message = "题目内容必传")
+	    @NotBlank(message = "选项A必传")
 	    private String optionA="";//选项A
+	    @NotBlank(message = "选项B必传")
 	    private String optionB="";//选项B
 	    private String optionC="";//选项C
 	    private String optionD="";//选项D
